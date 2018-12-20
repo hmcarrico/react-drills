@@ -3,16 +3,30 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      searchBar: '',
+      arr: ['lol', 'brb', 'ttyl', 'idk']
+    }
+  }
+  updateState = (e) => {
+    this.setState({
+      searchBar: e.target.value
+    })
+  }
+
   render() {
+    const filter = this.state.arr.filter((e) => {
+      return e.includes(this.state.searchBar)
+    }).map((e) => {
+      return <h1>{e}</h1>
+    })
+
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <input onChange={this.updateState} />
+        {filter}
       </div>
     );
   }
